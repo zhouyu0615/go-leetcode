@@ -1,7 +1,8 @@
-package main 
+package main
 
 import (
 	"fmt"
+	"sort"
 	"testing"
 )
 
@@ -23,11 +24,28 @@ type ans1 struct {
 	one []int
 }
 
-func Test_Problem1(t *testing.T) {
+func testEq(a, b []int) bool {
+
+	if len(a) != len(b) {
+		return false
+	}
+
+	sort.Ints(a)
+	sort.Ints(b)
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+
+	return true
+}
+
+func Test_TwoSums(t *testing.T) {
 
 	qs := []question1{
 		{
-			para1{[]int{3, 2, 4}, 6},
+			para1{[]int{47, 2, 4}, 6},
 			ans1{[]int{1, 2}},
 		},
 
@@ -47,7 +65,7 @@ func Test_Problem1(t *testing.T) {
 		},
 
 		{
-			para1{[]int{0, 3}, 5},
+			para1{[]int{0, 4}, 5},
 			ans1{[]int{}},
 		},
 		// 如需多个测试，可以复制上方元素。
@@ -57,7 +75,11 @@ func Test_Problem1(t *testing.T) {
 
 	for _, q := range qs {
 		_, p := q.ans1, q.para1
-		fmt.Printf("【input】:%v       【output】:%v\n", p, twoSum(p.nums, p.target))
+		actual := twoSum(p.nums, p.target)
+		if !testEq(actual, q.ans1.one) {
+			t.Fatalf("【input】:%v       【output】:%v,  expect:%v \n", p, actual, q.ans1.one)
+		}
+		fmt.Printf("【input】:%v       【output】:%v\n", p, actual)
 	}
 	fmt.Printf("\n\n\n")
 }
