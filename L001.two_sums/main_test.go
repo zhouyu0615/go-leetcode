@@ -68,10 +68,9 @@ func Test_TwoSums(t *testing.T) {
 			para1{[]int{0, 4}, 5},
 			ans1{[]int{}},
 		},
-		// 如需多个测试，可以复制上方元素。
 	}
 
-	fmt.Printf("------------------------Leetcode Problem 1------------------------\n")
+	fmt.Printf("------------------------Problem 1  two sums------------------------\n")
 
 	for _, q := range qs {
 		_, p := q.ans1, q.para1
